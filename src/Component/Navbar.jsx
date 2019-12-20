@@ -30,6 +30,7 @@ import Popover from '@material-ui/core/Popover';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import firebase from '../firebase';
+import Paper from "@material-ui/core/Paper";
 
 const useStyles = makeStyles(theme => ({
     grow: {
@@ -41,51 +42,55 @@ const useStyles = makeStyles(theme => ({
     },
 
     title: {
-        marginRight: theme.spacing(2),
+        marginLeft: theme.spacing(1),
+        position: 'relative',
         [theme.breakpoints.up("sm")]: {
             display: "block",
             marginRight: theme.spacing(2)
         }
     },
 
-    search: {
-        position: "relative",
+    root: {
+        padding: "2px 4px",
+        display: "flex",
+        marginLeft: theme.spacing(14),
         borderRadius: theme.shape.borderRadius,
         backgroundColor: "#f1f3f4",
-        marginRight: theme.spacing(2),
-        width: "100%",
-        [theme.breakpoints.up("sm")]: {
-            marginLeft: theme.spacing(14),
-            width: 800
+        alignItems: "center",
+        width: 650,
+        width: "50%",
+        [theme.breakpoints.down("sm")]: {
+            display: 'none'
         }
     },
+    input: {
+        marginLeft: theme.spacing(1),
+        flex: 1
+    },
 
-    searchIcon: {
-        width: theme.spacing(7),
-        height: "100%",
-        position: "absolute",
-        pointerEvents: "none",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center"
+    iconButton: {
+        padding: 10
     },
 
     inputRoot: {
-        color: "inherit"
+        color: "inherit",
+    },
 
-    },
-    orange: {
-        color: theme.palette.getContrastText(deepOrange[500]),
-        backgroundColor: deepOrange[500],
-    },
     inputInput: {
         padding: theme.spacing(2, 2, 1, 7),
         transition: theme.transitions.create("width"),
         width: "100%",
+        marginLeft: '-2.4em',
         [theme.breakpoints.up("md")]: {
-            width: 700
+            width: 575
         }
     },
+
+    orange: {
+        color: theme.palette.getContrastText(deepOrange[500]),
+        backgroundColor: deepOrange[500],
+    },
+
     profile: {
         backgroundColor: 'pink',
         height: '80px',
@@ -166,7 +171,12 @@ export default function PrimarySearchAppBar(props) {
             role="presentation">
             <List>
                 {[<span style={{ fontSize: '14px' }}><b>Notes</b></span>, <span style={{ fontSize: '14px' }}><b>Reminders</b></span>].map((text, index) => (
-                    <ListItem button key={text}>
+                    <ListItem button key={text}
+                        onClick={()=>{
+                            index % 2 === 0
+                                ? props.DashboardProps.history.push('/dashboard/notes')
+                                : props.DashboardProps.history.push('/dashboard/reminder')
+                        } }>
                         <ListItemIcon>{index % 2 === 0 ? <NotesIcon /> : <NotificationsRemindersIcon />}</ListItemIcon>
                         <ListItemText primary={text} />
                     </ListItem>
@@ -254,19 +264,20 @@ export default function PrimarySearchAppBar(props) {
                     <Typography className={classes.title} variant="h6" noWrap>
                         Fundoo
                     </Typography>
-                    <div className={classes.search}>
-                        <div className={classes.searchIcon}>
+                    <Paper component="form" className={classes.root}>
+                        <IconButton className={classes.iconButton} aria-label="menu">
                             <SearchIcon />
-                        </div>
+                        </IconButton>
                         <InputBase
-                            placeholder="Search…"
+                            className={classes.input}
+                            placeholder="Search"
                             classes={{
                                 root: classes.inputRoot,
                                 input: classes.inputInput
                             }}
                             inputProps={{ "aria-label": "search" }}
                         />
-                    </div>
+                    </Paper>
                     <div className={classes.grow} />
                     <div>
                         <IconButton color="inherit">

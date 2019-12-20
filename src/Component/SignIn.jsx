@@ -46,7 +46,7 @@ class SignIn extends Component {
 
             })
             localStorage.setItem("isAuth", true)
-            this.props.history.push('/dashboard');
+            this.props.history.push('/dashboard/notes');
         })
             .catch(function (error) {
                 var errorCode = error.code;
