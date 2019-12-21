@@ -1,5 +1,6 @@
-.textInput{
+.noteInput{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     margin-top: 150;
+    width: 570;
 }

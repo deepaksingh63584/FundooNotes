@@ -54,8 +54,8 @@ const useStyles = makeStyles(theme => ({
         padding: "2px 4px",
         display: "flex",
         marginLeft: theme.spacing(14),
-        borderRadius: theme.shape.borderRadius,
-        backgroundColor: "#f1f3f4",
+        borderRadius: '8px',
+        backgroundColor: "#e6e6e6",
         alignItems: "center",
         width: 650,
         width: "50%",
@@ -172,11 +172,11 @@ export default function PrimarySearchAppBar(props) {
             <List>
                 {[<span style={{ fontSize: '14px' }}><b>Notes</b></span>, <span style={{ fontSize: '14px' }}><b>Reminders</b></span>].map((text, index) => (
                     <ListItem button key={text}
-                        onClick={()=>{
+                        onClick={() => {
                             index % 2 === 0
                                 ? props.DashboardProps.history.push('/dashboard/notes')
                                 : props.DashboardProps.history.push('/dashboard/reminder')
-                        } }>
+                        }}>
                         <ListItemIcon>{index % 2 === 0 ? <NotesIcon /> : <NotificationsRemindersIcon />}</ListItemIcon>
                         <ListItemText primary={text} />
                     </ListItem>

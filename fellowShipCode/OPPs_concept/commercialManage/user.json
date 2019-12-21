@@ -1,0 +1,19 @@
+{
+    "user": [
+        {
+            "userName": "sid",
+            "noOfShare": 41,
+            "price": 2000
+        },
+        {
+            "userName": "rid",
+            "noOfShare": 35,
+            "price": 3000
+        },
+        {
+            "userName": "goldy",
+            "noOfShare": 35,
+            "price": 4000
+        }
+    ]
+}

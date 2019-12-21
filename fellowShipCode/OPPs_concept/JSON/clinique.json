@@ -1,0 +1,74 @@
+{
+    "doctor": [
+        {
+            "doctorName": "Dr C P Chaddha",
+            "ID": 123,
+            "specialization": "Surgery",
+            "availablity": "AM"
+        },
+        {
+            "doctorName": "Dr K C Ansari",
+            "ID": 134,
+            "specialization": "Neurology",
+            "availablity": "PM"
+        },
+        {
+            "doctorName": "Dr Karriyappa",
+            "ID": 134,
+            "specialization": "Internal medicine",
+            "availablity": "PM"
+        },
+        {
+            "doctorName": "Dr Sameera",
+            "ID": "124",
+            "specialization": "Plastic Surgen",
+            "availablity": "Both"
+        }
+    ],
+    "patient": [
+        {
+            "patientname": "Sam DSouza",
+            "pId": 1111,
+            "mobNo": 8968745896,
+            "age": 27
+        },
+        {
+            "patientname": "Arjun Reddy",
+            "pId": 1112,
+            "mobNo": 996365896,
+            "age": 52
+        },
+        {
+            "patientname": "Samuals",
+            "pId": 1113,
+            "mobNo": 8568569741,
+            "age": 34
+        },
+        {
+            "patientname": "Josef Bose",
+            "pId": 1114,
+            "mobNo": 8471453234,
+            "age": 27
+        },
+        {
+            "patientname": "Dyina Denny",
+            "pId": 1115,
+            "mobNo": 6354478822,
+            "age": 19
+        },
+        {
+            "patientname": "Megan",
+            "pId": 1116,
+            "mobNo": 7856983547,
+            "age": 27,
+            "p_Id": null
+        },
+        {
+            "patientname": "Baala",
+            "pId": 1117,
+            "mobNo": "7896548796",
+            "age": 24
+        }
+    ],
+    "ClinqueAppointment": []
+}

@@ -1,0 +1,86 @@
+{
+    "RiceList": [
+        {
+            "Name": "Daawat",
+            "Price": 130,
+            "Kg": 18,
+            "Type": "long Grain"
+        },
+        {
+            "Name": "India Gate",
+            "Price": 120,
+            "Kg": 16,
+            "Type": "Medium Grain"
+        },
+        {
+            "Name": "Daawat Brown",
+            "Price": 120,
+            "Kg": 14,
+            "Type": "Broken Grain"
+        },
+        {
+            "Name": "white kolam",
+            "Price": 150,
+            "Kg": 23,
+            "Type": "long grains"
+        },
+        {
+            "Name": "adirice",
+            "Price": "110",
+            "Kg": "22",
+            "Type": "black"
+        }
+    ],
+    "PulseList": [
+        {
+            "Name": "Kidney Beens",
+            "Price": 110,
+            "Kg": 18,
+            "Type": "red beens"
+        },
+        {
+            "Name": "Kala Chana",
+            "Price": 90,
+            "Kg": 15,
+            "Type": "dry"
+        },
+        {
+            "Name": "Urad Dal",
+            "Price": 110,
+            "Kg": 15,
+            "Type": "Greensish"
+        },
+        {
+            "Name": "Mung beans",
+            "Price": 98,
+            "Kg": 15,
+            "Type": "Greensish"
+        }
+    ],
+    "WheatsList": [
+        {
+            "Name": "soft white wheats",
+            "Price": 120,
+            "Kg": 12,
+            "Type": "soft"
+        },
+        {
+            "Name": "Hard white wheats",
+            "Price": 90,
+            "Kg": 11,
+            "Type": "Hard"
+        },
+        {
+            "Name": "Hard red wheats",
+            "Price": 95,
+            "Kg": 12,
+            "Type": "Hard"
+        },
+        {
+            "Name": "Hardred        ",
+            "Price": 95,
+            "Kg": 12,
+            "Type": "Hard"
+        }
+    ]
+}

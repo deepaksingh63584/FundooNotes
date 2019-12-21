@@ -14,18 +14,23 @@ const useStyles = makeStyles(theme => ({
         padding: "2px 4px",
         display: "flex",
         borderRadius: '8px',
-        backgroundColor: "#fff",
+        backgroundColor: "white",
         alignItems: "center",
         flexDirection: 'column',
-        marginTop: 100,
-        marginLeft: 425,
-    },
-    titleInput: {
-        dispaly: 'flex',
-        padding: "10px 15px",
+        boxShadow: 'none',
 
     },
-    titleInput: {
+    input: {
+        marginLeft: theme.spacing(0),
+        flex: 1
+    },
+    iconButton: {
+        padding: 10
+    },
+    noteInput: {
+        display: "flex",
+        flexWrap: "wrap",
+        width: 570,
 
     }
 }));
@@ -36,7 +41,7 @@ export default function CustomizedInputBase() {
 
     return (
         <Paper component="div" className={classes.root}>
-            <Paper className="textInput">
+            <Paper className={classes.noteInput}>
                 <InputBase
                     style={{
                         fontSize: '18px'
@@ -49,14 +54,15 @@ export default function CustomizedInputBase() {
                     {/* <Unpined /> */}
                 </IconButton>
             </Paper>
-            <Paper>
+            <Paper className={classes.noteInput}>
                 <InputBase
-                    className='textInput'
+                    className={classes.input}
                     placeholder="Take a notes..."
                     inputProps={{ "aria-label": "search" }}
                 />
             </Paper>
-            <Paper className='textInput'>
+            <br />
+            <Paper className={classes.noteInput}>
                 <IconButton>
                     <AddAlertOutlined />
                 </IconButton>

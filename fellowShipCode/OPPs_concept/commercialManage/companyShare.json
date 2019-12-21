@@ -1,0 +1,14 @@
+{
+    "companyShare": [
+        {
+            "companyName": "Cognizant",
+            "noOfshare": 56,
+            "price": 60000
+        },
+        {
+            "companyName": "Infy",
+            "noOfshare": 45,
+            "price": 50000
+        }
+    ]
+}
