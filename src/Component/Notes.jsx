@@ -11,23 +11,56 @@ import { AddAlertOutlined, PersonAddOutlined, ColorLensOutlined, MoreVertOutline
 
 const useStyles = makeStyles(theme => ({
     root: {
-        padding: "2px 4px",
         display: "flex",
         borderRadius: '8px',
-        backgroundColor: "#fff",
+        backgroundColor: "deeppink",
+        justifyContent: "center",
         alignItems: "center",
         flexDirection: 'column',
-        marginTop: 100,
-        marginLeft: 425,
+        marginTop: "7em",
+        padding: theme.spacing(2)
     },
-    titleInput: {
+
+    textInput: {
+        display: "flex",
+        flexWrap: "wrap",
+        flexDirection: "row",
+        width: 570,
+        paddingTop: "8px",
+        border: "1ps solid white",
+        boxShadow: "0.1em 0.1em 0.4em 0em #fff",
+        lineHeight: "0.8rem",
+        borderRadius: 'none',
+        // border: 'none',
+        boxShadow: 'none'
+    },
+
+    titleText: {
+        marginLeft: theme.spacing(1),
         dispaly: 'flex',
-        padding: "10px 15px",
+        width: "100%",
+        borderRadius: 'none',
+        border: 'none',
+        boxShadow: 'none'
+    },
+
+    iconButton: {
+        width: "32px",
+        hight: "32px",
+        margin: "5px",
+        color: "#202124"
 
     },
-    titleInput: {
 
-    }
+    closeButton: {
+        display: "flex",
+        marginLeft: "10em",
+        width: "32px",
+        hight: "32px",
+        margin: "5px",
+        color: "#202124"
+
+    },
 }));
 
 export default function CustomizedInputBase() {
@@ -36,12 +69,10 @@ export default function CustomizedInputBase() {
 
     return (
         <Paper component="div" className={classes.root}>
-            <Paper className="textInput">
+            <Paper className={classes.textInput}>
                 <InputBase
-                    style={{
-                        fontSize: '18px'
-                    }}
-                    className={classes.titleInput}
+                    style={{ fontSize: '18px' }}
+                    className={classes.titleText}
                     placeholder="Title"
                     inputProps={{ "aria-label": "title" }}
                 />
@@ -49,39 +80,39 @@ export default function CustomizedInputBase() {
                     {/* <Unpined /> */}
                 </IconButton>
             </Paper>
-            <Paper>
+            <Paper className={classes.textInput}>
                 <InputBase
-                    className='textInput'
+                    className={classes.takeNote}
                     placeholder="Take a notes..."
                     inputProps={{ "aria-label": "search" }}
                 />
             </Paper>
-            <Paper className='textInput'>
-                <IconButton>
-                    <AddAlertOutlined />
+            <Paper className={classes.textInput}>
+                <IconButton className={classes.iconButton}>
+                    <AddAlertOutlined fontSize="small" />
+                </IconButton >
+                <IconButton className={classes.iconButton}>
+                    <PersonAddOutlined fontSize="small" />
                 </IconButton>
-                <IconButton>
-                    <PersonAddOutlined />
+                <IconButton className={classes.iconButton}>
+                    <ColorLensOutlined fontSize="small" />
                 </IconButton>
-                <IconButton>
-                    <ColorLensOutlined />
+                <IconButton className={classes.iconButton}>
+                    <ImageOutlined fontSize="small" />
                 </IconButton>
-                <IconButton>
-                    <ImageOutlined />
+                <IconButton className={classes.iconButton}>
+                    <ArchiveOutlined fontSize="small" />
                 </IconButton>
-                <IconButton>
-                    <ArchiveOutlined />
+                <IconButton className={classes.iconButton}>
+                    <MoreVertOutlined fontSize="small" />
                 </IconButton>
-                <IconButton>
-                    <MoreVertOutlined />
+                <IconButton className={classes.iconButton}>
+                    <UndoOutlined fontSize="small" />
                 </IconButton>
-                <IconButton>
-                    <UndoOutlined />
-                </IconButton>
-                <IconButton>
-                    <RedoOutlined />
-                </IconButton>
-                <Button>
+                <IconButton className={classes.iconButton}>
+                    <RedoOutlined fontSize="small" />
+                </IconButton >
+                <Button className={classes.closeButton}>
                     Close
                 </Button>
             </Paper>

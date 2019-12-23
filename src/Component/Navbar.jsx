@@ -92,7 +92,8 @@ const useStyles = makeStyles(theme => ({
     },
 
     profile: {
-        backgroundColor: 'pink',
+        color: theme.palette.getContrastText(deepOrange[500]),
+        backgroundColor: deepOrange[500],
         height: '80px',
         width: '80px'
 
