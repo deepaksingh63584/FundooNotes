@@ -31,6 +31,8 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import firebase from '../firebase';
 import Paper from "@material-ui/core/Paper";
+import { connect } from 'react-redux';
+import { toggleDrawerOpen, toggleDrawerClose } from "../Redux/Drawer/Ation";
 
 const useStyles = makeStyles(theme => ({
     grow: {
@@ -58,7 +60,7 @@ const useStyles = makeStyles(theme => ({
         backgroundColor: "#e6e6e6",
         alignItems: "center",
         width: 650,
-        width: "50%",
+        // width: "50%",
         [theme.breakpoints.down("sm")]: {
             display: 'none'
         }
@@ -144,18 +146,18 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-export default function PrimarySearchAppBar(props) {
+function Navbar(props) {
     const classes = useStyles();
     const [view, setview] = React.useState(false)
-    const [state, setstate] = React.useState(false);
+    // const [state, setstate] = React.useState(false);
     const [anchorEl, setAnchorEl] = React.useState(null);
 
-    const handleDrawerClose = () => {
-        setstate(false);
-    }
-    const handleDrawerOpen = () => {
-        setstate(true);
-    }
+    // const handleDrawerClose = () => {
+    //     setstate(false);
+    // }
+    // const handleDrawerOpen = () => {
+    //     setstate(true);
+    // }
 
     const popOpen = Boolean(anchorEl)
     const id = popOpen ? 'simple-popover' : undefined;
@@ -259,7 +261,7 @@ export default function PrimarySearchAppBar(props) {
                         className={classes.menuButton}
                         color="inherit"
                         aria-label="open drawer"
-                        onClick={!state ? handleDrawerOpen : handleDrawerClose}>
+                        onClick={!props.drawerOpen ? props.toggleDrawerOpen : props.toggleDrawerClose}>
                         <MenuIcon />
                     </IconButton>
                     <Typography className={classes.title} variant="h6" noWrap>
@@ -297,7 +299,7 @@ export default function PrimarySearchAppBar(props) {
             </AppBar>
 
             <Drawer className={classes.drawer}
-                open={state}
+                open={props.drawerOpen}
                 anchor="left"
                 variant="persistent">
                 {sideList}
@@ -306,3 +308,18 @@ export default function PrimarySearchAppBar(props) {
         </div>
     );
 }
+
+const mapToStateProps = (state) => {
+    return {
+        drawerOpen: state.drawerOpen
+    }
+}
+
+const mapToDispatchProps = (dispatch) => {
+    return {
+        toggleDrawerOpen: () => dispatch(toggleDrawerOpen()),
+        toggleDrawerClose: () => dispatch(toggleDrawerClose())
+    }
+}
+
+export default connect(mapToStateProps, mapToDispatchProps)(Navbar)

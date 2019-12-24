@@ -24,11 +24,11 @@ function Routing() {
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={props => (
-        localStorage.getItem('isAuth') ? (
-            <Component {...props} />) : (
-                <Redirect to={{
-                    pathname: '/',
-                }} />
+        localStorage.getItem('isAuth') ?
+            (<Component {...props} />) :
+            (<Redirect to={{
+                pathname: '/',
+            }} />
             )
     )} />
 )

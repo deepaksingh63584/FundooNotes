@@ -33,16 +33,15 @@ class SignIn extends Component {
     }
 
     toDashboard = () => {
-        firebase.auth().signInWithEmailAndPassword(this.state.emailid, this.state.password).then((success) => {
-            firebase.database().ref('users').orderByChild('uid').equalTo(success.user.uid).once('value', (snapshot) => {
+        firebase.auth().signInWithEmailAndPassword(this.state.emailid, this.state.password).then(async (success) => {
+            await firebase.database().ref('/users/' + success.user.uid + '/personalData/').once('value', (snapshot) => {
                 let snapObj = snapshot.val();
-                let key = Object.getOwnPropertyNames(snapshot.val());
 
-                localStorage.setItem('FirstLetter', (snapObj[key].firstname).charAt(0))
-                console.log(snapObj[key].firstname);
-                localStorage.setItem('FirstName', snapObj[key].firstname)
-                localStorage.setItem('LastName', snapObj[key].lastname)
-                localStorage.setItem('EmailId', snapObj[key].emailid)
+                localStorage.setItem('FirstLetter', (snapObj.firstname).charAt(0))
+                localStorage.setItem('FirstName', snapObj.firstname)
+                localStorage.setItem('LastName', snapObj.lastname)
+                localStorage.setItem('EmailId', snapObj.emailid)
+                localStorage.setItem('uId', snapObj.uid)
 
             })
             localStorage.setItem("isAuth", true)

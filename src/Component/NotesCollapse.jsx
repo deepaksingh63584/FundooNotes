@@ -9,23 +9,30 @@ import ImageOutlinedIcon from "@material-ui/icons/ImageOutlined";
 
 const useStyles = makeStyles(theme => ({
     root: {
-        padding: "2px 4px",
-        display: "flex",
-        alignItems: "center",
-        width: 600,
-        marginTop: 100,
-        marginLeft: 425,
+        padding: '2px 4px',
+        display: 'flex',
+        alignItems: 'center',
+        flexDirection: 'row',
+        width: 570,
+        boxShadow: '0.1em 0.1em 0.4em 0.1em black',
+        borderRadius: '8px',
+        [theme.breakpoints.down('xs')]: {
+            width: 300,
+        }
     },
+
     input: {
         marginLeft: theme.spacing(1),
-        flex: 1
+        flex: 1,
     },
     iconButton: {
-        padding: 10
-    }
+        padding: 10,
+        [theme.breakpoints.down('xs')]: {
+            marginRight: theme.spacing(-1),
+        }
+    },
 }));
-
-export default function CustomizedInputBase() {
+export default function CustomizedInputBase(props) {
     const classes = useStyles();
 
     return (
@@ -33,7 +40,8 @@ export default function CustomizedInputBase() {
             <InputBase
                 className={classes.input}
                 placeholder="Take a notes..."
-                inputProps={{ "aria-label": "search google maps" }}
+                inputProps={{ "aria-label": "notes" }}
+                onClick={props.HandleClickChange}
             />
             <IconButton
                 type="submit"

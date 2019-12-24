@@ -1,121 +1,76 @@
-import React from "react";
+import React from 'react';
 import '../Css Files/notes.css';
-import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import IconButton from "@material-ui/core/IconButton";
-import InputBase from "@material-ui/core/InputBase";
-import Unpined from '../Component/image/unpined.svg';
-import Pined from '../Component/image/pined.svg';
-import Button from '@material-ui/core/Button';
-import { AddAlertOutlined, PersonAddOutlined, ColorLensOutlined, MoreVertOutlined, ImageOutlined, ArchiveOutlined, UndoOutlined, RedoOutlined } from '@material-ui/icons';
+import Container from '@material-ui/core/Container';
+import { ClickAwayListener } from '@material-ui/core';
+import NotesCollapse from './NotesCollapse';
+import NotesExpand from './NotesExpand';
+import { connect } from 'react-redux';
 
-const useStyles = makeStyles(theme => ({
-    root: {
-        display: "flex",
-        borderRadius: '8px',
-        backgroundColor: "deeppink",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: 'column',
-        marginTop: "7em",
-        padding: theme.spacing(2)
-    },
+class Notes extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            sliderClassName: !props.drawerOpen ? 'mainContainer' : 'slideMainContainer',
+            clickAway: false,
+            noteTitle: '',
+            noteItem: '',
+            pinStatus: false,
 
-    textInput: {
-        display: "flex",
-        flexWrap: "wrap",
-        flexDirection: "row",
-        width: 570,
-        paddingTop: "8px",
-        border: "1ps solid white",
-        boxShadow: "0.1em 0.1em 0.4em 0em #fff",
-        lineHeight: "0.8rem",
-        borderRadius: 'none',
-        // border: 'none',
-        boxShadow: 'none'
-    },
+        };
+    }
 
-    titleText: {
-        marginLeft: theme.spacing(1),
-        dispaly: 'flex',
-        width: "100%",
-        borderRadius: 'none',
-        border: 'none',
-        boxShadow: 'none'
-    },
+    static getDerivedStateFromProps(props, state) {
+        if (!window.matchMedia('(max-width: 1000px)').matches) {
+            return {
+                ...state,
+                sliderClassName: !props.drawerOpen ? 'mainContainer' : 'slideMainContainer'
 
-    iconButton: {
-        width: "32px",
-        hight: "32px",
-        margin: "5px",
-        color: "#202124"
+            }
+        }
+    }
 
-    },
+    handleClickChange = () => {
+        this.setState({
+            clickAway: true
+        })
+    }
 
-    closeButton: {
-        display: "flex",
-        marginLeft: "10em",
-        width: "32px",
-        hight: "32px",
-        margin: "5px",
-        color: "#202124"
+    handleClickAway = () => {
+        this.setState({
+            clickAway: false
+        })
+    }
 
-    },
-}));
-
-export default function CustomizedInputBase() {
-    const classes = useStyles();
-    const [pin, setpin] = React.useState(false);
-
-    return (
-        <Paper component="div" className={classes.root}>
-            <Paper className={classes.textInput}>
-                <InputBase
-                    style={{ fontSize: '18px' }}
-                    className={classes.titleText}
-                    placeholder="Title"
-                    inputProps={{ "aria-label": "title" }}
-                />
-                <IconButton>
-                    {/* <Unpined /> */}
-                </IconButton>
-            </Paper>
-            <Paper className={classes.textInput}>
-                <InputBase
-                    className={classes.takeNote}
-                    placeholder="Take a notes..."
-                    inputProps={{ "aria-label": "search" }}
-                />
-            </Paper>
-            <Paper className={classes.textInput}>
-                <IconButton className={classes.iconButton}>
-                    <AddAlertOutlined fontSize="small" />
-                </IconButton >
-                <IconButton className={classes.iconButton}>
-                    <PersonAddOutlined fontSize="small" />
-                </IconButton>
-                <IconButton className={classes.iconButton}>
-                    <ColorLensOutlined fontSize="small" />
-                </IconButton>
-                <IconButton className={classes.iconButton}>
-                    <ImageOutlined fontSize="small" />
-                </IconButton>
-                <IconButton className={classes.iconButton}>
-                    <ArchiveOutlined fontSize="small" />
-                </IconButton>
-                <IconButton className={classes.iconButton}>
-                    <MoreVertOutlined fontSize="small" />
-                </IconButton>
-                <IconButton className={classes.iconButton}>
-                    <UndoOutlined fontSize="small" />
-                </IconButton>
-                <IconButton className={classes.iconButton}>
-                    <RedoOutlined fontSize="small" />
-                </IconButton >
-                <Button className={classes.closeButton}>
-                    Close
-                </Button>
-            </Paper>
-        </Paper>
-    );
+    render() {
+        return (
+            <Container style={{ marginTop: '4.1em', backgroundColor: 'red' }}>
+                <div className={this.state.sliderClassName}>
+                    <ClickAwayListener onClickAway={this.handleClickAway}>
+                        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2.8em' }}>
+                            {
+                                this.state.clickAway
+                                    ? <NotesExpand
+                                        onClickAway={this.handleClickAway}
+                                        noteTitleValue={this.state.noteTitle}
+                                        noteItemValue={this.state.noteItem}
+                                        pinStatusChange={() => this.setState({ pinStatus: !this.state.pinStatus })}
+                                        pinStatus={this.state.pinStatus}
+                                    />
+                                    : <NotesCollapse
+                                        HandleClickChange={this.handleClickChange} />
+                            }
+                        </div>
+                    </ClickAwayListener>
+                </div>
+            </Container>
+        )
+    }
 }
+
+const mapToStateProps = (state) => {
+    return {
+        drawerOpen: state.drawerOpen
+    }
+}
+
+export default connect(mapToStateProps)(Notes);

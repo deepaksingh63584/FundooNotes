@@ -1,0 +1,15 @@
+.mainContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: aqua;
+    transition: margin .20s linear;
+}
+
+.slideMainContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 160px;
+    transition: margin .20s linear;
+}

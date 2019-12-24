@@ -248,11 +248,10 @@ class Signup extends Component {
         //console.log("writedata1");
 
         firebase.auth().createUserWithEmailAndPassword(this.state.emailid, this.state.passworditem).then((success) => {
-            firebase.database().ref('users/').push({
+            firebase.database().ref('/users/' + success.user.uid + '/personalData/').set({
                 firstname: this.state.firstname,
                 lastname: this.state.lastname,
-                emailid: this.state.emailid,
-                uid: success.user.uid
+                emailid: this.state.emailid
             })
             this.props.history.push('/');
             //console.log("writedata2");

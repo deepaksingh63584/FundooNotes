@@ -1,93 +1,83 @@
-import React from "react";
-import '../Css Files/notes.css';
-import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import IconButton from "@material-ui/core/IconButton";
-import InputBase from "@material-ui/core/InputBase";
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import InputBase from '@material-ui/core/InputBase';
+import { Button } from '@material-ui/core';
+import IconButton from '@material-ui/core/IconButton';
 import Unpined from '../Component/image/unpined.svg';
 import Pined from '../Component/image/pined.svg';
-import Button from '@material-ui/core/Button';
+import Avatar from '@material-ui/core/Avatar';
 import { AddAlertOutlined, PersonAddOutlined, ColorLensOutlined, MoreVertOutlined, ImageOutlined, ArchiveOutlined, UndoOutlined, RedoOutlined } from '@material-ui/icons';
+
 
 const useStyles = makeStyles(theme => ({
     root: {
-        display: "flex",
-        borderRadius: '8px',
-        backgroundColor: "deeppink",
-        justifyContent: "center",
-        alignItems: "center",
+        padding: '2px 4px',
+        display: 'flex',
+        alignItems: 'center',
         flexDirection: 'column',
-        marginTop: "7em",
-        padding: theme.spacing(2)
-    },
-
-    textInput: {
-        display: "flex",
-        flexWrap: "wrap",
-        flexDirection: "row",
         width: 570,
-        paddingTop: "8px",
-        border: "1ps solid white",
-        boxShadow: "0.1em 0.1em 0.4em 0em #fff",
-        lineHeight: "0.8rem",
-        // borderRadius: 'none',
-        // border: 'none',
-        boxShadow: 'none'
+        boxShadow: '0.1em 0.1em 0.4em 0.1em black',
+        borderRadius: '8px',
+        [theme.breakpoints.down('xs')]: {
+            width: 300,
+        }
     },
-
-    titleText: {
+    paper: {
+        display: 'flex',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        width: 570,
+        border: '2px solid white',
+        borderRadius: '0px',
+        boxShadow: '0.1em 0.1em 0.4em 0em #fff',
+        [theme.breakpoints.down('xs')]: {
+            width: 300,
+        }
+    },
+    input: {
         marginLeft: theme.spacing(1),
-        dispaly: 'flex',
-        width: "100%",
-        borderRadius: 'none',
-        border: 'none',
-        boxShadow: 'none'
+        flex: 1,
     },
-
     iconButton: {
-        width: "32px",
-        hight: "32px",
-        margin: "5px",
-        color: "#202124"
-
+        padding: 10,
+        color: "#202124",
+        [theme.breakpoints.down('xs')]: {
+            marginRight: theme.spacing(-1),
+        }
     },
-
     closeButton: {
-        display: "flex",
-        marginLeft: "10em",
-        width: "32px",
-        hight: "32px",
-        margin: "5px",
-        color: "#202124"
-
+        marginLeft: theme.spacing(19),
+        [theme.breakpoints.down('xs')]: {
+            marginLeft: theme.spacing(28),
+        }
     },
 }));
 
-export default function CustomizedInputBase() {
+export default function CustomizedInputBase(props) {
     const classes = useStyles();
-    const [pin, setpin] = React.useState(false);
 
     return (
         <Paper component="div" className={classes.root}>
-            <Paper className={classes.textInput}>
+
+            <Paper className={classes.paper}>
                 <InputBase
-                    style={{ fontSize: '18px' }}
-                    className={classes.titleText}
+                    className={classes.input}
                     placeholder="Title"
                     inputProps={{ "aria-label": "title" }}
                 />
-                <IconButton>
-                    {/* <Unpined /> */}
+                <IconButton color="primary" className={classes.iconButton} aria-label="directions" onClick={props.pinStatusChange} >
+                    <Avatar src={props.pinStatus ? Pined : Unpined} style={{ height: "25px", width: "20px" }} ></Avatar>
                 </IconButton>
             </Paper>
-            <Paper className={classes.textInput}>
+            <Paper className={classes.paper}>
                 <InputBase
-                    className={classes.takeNote}
+                    className={classes.input}
                     placeholder="Take a notes..."
                     inputProps={{ "aria-label": "search" }}
                 />
             </Paper>
-            <Paper className={classes.textInput}>
+            <Paper className={classes.paper}>
                 <IconButton className={classes.iconButton}>
                     <AddAlertOutlined fontSize="small" />
                 </IconButton >
@@ -112,7 +102,7 @@ export default function CustomizedInputBase() {
                 <IconButton className={classes.iconButton}>
                     <RedoOutlined fontSize="small" />
                 </IconButton >
-                <Button className={classes.closeButton}>
+                <Button className={classes.closeButton} onClick={props.onClickAway}>
                     Close
                 </Button>
             </Paper>
