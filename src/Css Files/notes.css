@@ -12,4 +12,6 @@
     justify-content: center;
     margin-left: 160px;
     transition: margin .20s linear;
+    background-color: yellowgreen;
+    height: 40%;
 }

@@ -41,8 +41,9 @@ class SignIn extends Component {
                 localStorage.setItem('FirstName', snapObj.firstname)
                 localStorage.setItem('LastName', snapObj.lastname)
                 localStorage.setItem('EmailId', snapObj.emailid)
-                localStorage.setItem('uId', snapObj.uid)
-
+                localStorage.setItem('uId', success.user.uid)
+                console.log('sihn in : '+localStorage.getItem('uId'));
+                
             })
             localStorage.setItem("isAuth", true)
             this.props.history.push('/dashboard/notes');

@@ -149,15 +149,7 @@ const useStyles = makeStyles(theme => ({
 function Navbar(props) {
     const classes = useStyles();
     const [view, setview] = React.useState(false)
-    // const [state, setstate] = React.useState(false);
     const [anchorEl, setAnchorEl] = React.useState(null);
-
-    // const handleDrawerClose = () => {
-    //     setstate(false);
-    // }
-    // const handleDrawerOpen = () => {
-    //     setstate(true);
-    // }
 
     const popOpen = Boolean(anchorEl)
     const id = popOpen ? 'simple-popover' : undefined;
