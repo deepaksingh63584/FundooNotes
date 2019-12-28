@@ -93,22 +93,23 @@ class Notes extends React.Component {
                             }
                         </div>
                     </ClickAwayListener>
-                    {
-                        this.state.notes !== null && this.state.notes !== undefined
-                            ? Object.getOwnPropertyNames(this.state.notes).map((key, index) => (
-                                // console.log('notes :' + JSON.stringify(this.state.notes)),
-                                // console.log('Title :' + this.state.notes[key].Title),
-                                // console.log('content :' + this.state.notes[key].Content),
-                                // console.log('pin :' + this.state.notes[key].PinStatus)
-                                <NoteCard
-                                    Title={this.state.notes[key].Title}
-                                    Content={this.state.notes[key].Content}
-                                    PinStatus={this.state.notes[key].Content}
-                                />
-                            ))
-
-                            : null
-                    }
+                    <div className='noteCard'>
+                        {
+                            this.state.notes !== null && this.state.notes !== undefined
+                                ? Object.getOwnPropertyNames(this.state.notes).map((key, index) => (
+                                    // console.log('notes :' + JSON.stringify(this.state.notes)),
+                                    // console.log('Title :' + this.state.notes[key].Title),
+                                    // console.log('content :' + this.state.notes[key].Content),
+                                    // console.log('pin :' + this.state.notes[key].PinStatus)
+                                    <NoteCard
+                                        Title={this.state.notes[key].Title}
+                                        Content={this.state.notes[key].Content}
+                                        PinStatus={this.state.notes[key].Content}
+                                    />
+                                ))
+                                : null
+                        }
+                    </div>
                 </div>
             </Container>
         )

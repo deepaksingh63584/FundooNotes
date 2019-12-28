@@ -3,10 +3,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
 import { Button } from '@material-ui/core';
-import IconButton from '@material-ui/core/IconButton';
 import Unpined from '../Component/image/unpined.svg';
 import Pined from '../Component/image/pined.svg';
 import Avatar from '@material-ui/core/Avatar';
+import { IconButton, MenuItem, MenuList, Popper, ClickAwayListener, Grow } from '@material-ui/core/';
 import { AddAlertOutlined, PersonAddOutlined, ColorLensOutlined, MoreVertOutlined, ImageOutlined, ArchiveOutlined, UndoOutlined, RedoOutlined } from '@material-ui/icons';
 
 
@@ -56,6 +56,50 @@ const useStyles = makeStyles(theme => ({
 
 export default function CustomizedInputBase(props) {
     const classes = useStyles();
+    const [open, setOpen] = React.useState(false);
+    const anchorRef = React.useRef(null);
+
+
+    const handleToggle = () => {
+        setOpen(prevOpen => !prevOpen);
+    };
+
+    const handleClose = event => {
+        if (anchorRef.current && anchorRef.current.contains(event.target)) {
+            return;
+        }
+        setOpen(false);
+    };
+
+    const prevOpen = React.useRef(open);
+    React.useEffect(() => {
+        if (prevOpen.current === true && open === false) {
+            anchorRef.current.focus();
+        }
+        prevOpen.current = open;
+    }, [open]);
+
+    const renderMoreMenu = (
+        <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal
+            style={{ backgroundColor: "#fff", zIndex: 1 }}>
+            {({ TransitionProps, placement }) => (
+                <Grow
+                    {...TransitionProps}
+                    style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+                >
+                    <Paper>
+                        <ClickAwayListener onClickAway={handleClose}>
+                            <MenuList autoFocusItem={open} id="menu-list-grow">
+                                <MenuItem onClick={handleClose}>add Level</MenuItem>
+                                <MenuItem onClick={handleClose}>add Drawing</MenuItem>
+                                <MenuItem onClick={handleClose}>Show Checkboxes</MenuItem>
+                            </MenuList>
+                        </ClickAwayListener>
+                    </Paper>
+                </Grow>
+            )}
+        </Popper>
+    )
 
     return (
         <Paper component="div" className={classes.root}>
@@ -99,8 +143,14 @@ export default function CustomizedInputBase(props) {
                 <IconButton className={classes.iconButton}>
                     <ArchiveOutlined fontSize="small" />
                 </IconButton>
-                <IconButton className={classes.iconButton}>
+                <IconButton className={classes.iconButton}
+                    ref={anchorRef}
+                    aria-controls={open ? 'menu-list-grow' : undefined}
+                    aria-haspopup="true"
+                    onClick={handleToggle}
+                    flexWrap="wrap">
                     <MoreVertOutlined fontSize="small" />
+                    {renderMoreMenu}
                 </IconButton>
                 <IconButton className={classes.iconButton}>
                     <UndoOutlined fontSize="small" />

@@ -15,3 +15,12 @@
     background-color: yellowgreen;
     height: 40%;
 }
+
+.noteCard{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background-color: cadetblue;
+    margin-top: 2em;
+
+}

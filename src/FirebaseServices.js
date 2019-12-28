@@ -11,7 +11,7 @@ export function setNoteInFireBase(noteTitleValue, noteItemValue, pinStatus) {
 }
 
 export function fetchNotesFromFireBase(callback) {
-    firebase.database().ref('/users/' + uid + '/Notes/').once('value', (snapshot) => {
+    firebase.database().ref('/users/' + uid + '/Notes/').on('value', (snapshot) => {
         let snapObj = snapshot.val();
         callback(snapObj)
     })
