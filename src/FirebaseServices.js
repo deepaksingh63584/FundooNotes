@@ -16,3 +16,25 @@ export function fetchNotesFromFireBase(callback) {
         callback(snapObj)
     })
 }
+
+export function updatePinStatus(key, status) {
+    console.log(key);
+    console.log(status);
+    firebase.database().ref('/users/' + uid + '/Notes/' + key + '/').update({
+        PinStatus: status
+    })
+}
+
+export function editNotes(key, noteTitleValue, noteItemValue, pinStatus) {
+    firebase.database().ref('/users/' + uid + '/Notes/' + key + '/').update({
+        Title: noteTitleValue,
+        Content: noteItemValue,
+        PinStatus: pinStatus
+    })
+}
+
+export function deleteNotes(key) {
+    console.log(key);
+    console.log(status);
+    firebase.database().ref('/users/' + uid + '/Notes/' + key + '/').update
+}

@@ -7,7 +7,8 @@ import Pined from '../Component/image/pined.svg';
 import Avatar from '@material-ui/core/Avatar';
 import { IconButton, MenuItem, MenuList, Popper, ClickAwayListener, Grow } from '@material-ui/core/';
 import { AddAlertOutlined, PersonAddOutlined, ColorLensOutlined, MoreVertOutlined, ImageOutlined, ArchiveOutlined } from '@material-ui/icons';
-
+import { updatePinStatus } from '../FirebaseServices';
+import EditNote from './EditNotes';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -58,6 +59,7 @@ export default function CustomizedInputBase(props) {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const anchorRef = React.useRef(null);
+    const [state, setState] = React.useState(false)
 
 
     const handleToggle = () => {
@@ -70,6 +72,15 @@ export default function CustomizedInputBase(props) {
         }
         setOpen(false);
     };
+
+    const handleClickChange = () => {
+        setState(true);
+    };
+
+    const handleCloseChange = () => {
+        setState(false);
+    };
+
 
     const prevOpen = React.useRef(open);
     React.useEffect(() => {
@@ -104,49 +115,55 @@ export default function CustomizedInputBase(props) {
     )
 
     return (
-        <Paper component="div" className={classes.root}>
-            <Paper className={classes.paper}>
-                <Typography
-                    className={classes.input}
-                    placeholder="Title"
-                    inputProps={{ "aria-label": "title" }}
-                >{props.Title}</Typography>
-                <IconButton color="primary" className={classes.iconButton} aria-label="directions" onClick={props.pinStatusChange} >
-                    <Avatar src={props.pinStatus ? Pined : Unpined} style={{ height: "20px", width: "15px" }} ></Avatar>
-                </IconButton>
-            </Paper>
-            <Paper className={classes.paper}>
-                <Typography
-                    className={classes.input}
-                    placeholder="Take a notes..."
-                    inputProps={{ "aria-label": "Notes" }}
-                >{props.Content}</Typography>
-            </Paper>
-            <Paper className={classes.paper}>
-                <IconButton className={classes.iconButton}>
-                    <AddAlertOutlined fontSize="small" />
-                </IconButton >
-                <IconButton className={classes.iconButton}>
-                    <PersonAddOutlined fontSize="small" />
-                </IconButton>
-                <IconButton className={classes.iconButton}>
-                    <ColorLensOutlined fontSize="small" />
-                </IconButton>
-                <IconButton className={classes.iconButton}>
-                    <ImageOutlined fontSize="small" />
-                </IconButton>
-                <IconButton className={classes.iconButton}>
-                    <ArchiveOutlined fontSize="small" />
-                </IconButton>
-                <IconButton className={classes.iconButton}
-                    ref={anchorRef}
-                    aria-controls={open ? 'menu-list-grow' : undefined}
-                    aria-haspopup="true"
-                    onClick={handleToggle}>
-                    <MoreVertOutlined fontSize="small" />
-                    {renderMenu}
-                </IconButton>
-            </Paper>
-        </Paper>
+        <div>
+            <Paper component="div" className={classes.root}>
+                <Paper className={classes.paper}>
+                    <Typography
+                        className={classes.input}
+                        onClick={handleClickChange}
+                    >{props.NoteObj.Title}</Typography>
+                    <IconButton color="primary" className={classes.iconButton} aria-label="directions" onClick={() => { updatePinStatus(props.Nkey, !props.NoteObj.PinStatus) }} >
+                        <Avatar src={props.NoteObj.PinStatus ? Pined : Unpined} style={{ height: "20px", width: "15px" }} ></Avatar>
+                    </IconButton>
+                </Paper>
+                <Paper className={classes.paper}>
+                    <Typography
+                        className={classes.input}
+                        onClick={handleClickChange}
+                    >{props.NoteObj.Content}</Typography>
+                </Paper>
+                <Paper className={classes.paper}>
+                    <IconButton className={classes.iconButton}>
+                        <AddAlertOutlined fontSize="small" />
+                    </IconButton >
+                    <IconButton className={classes.iconButton}>
+                        <PersonAddOutlined fontSize="small" />
+                    </IconButton>
+                    <IconButton className={classes.iconButton}>
+                        <ColorLensOutlined fontSize="small" />
+                    </IconButton>
+                    <IconButton className={classes.iconButton}>
+                        <ImageOutlined fontSize="small" />
+                    </IconButton>
+                    <IconButton className={classes.iconButton}>
+                        <ArchiveOutlined fontSize="small" />
+                    </IconButton>
+                    <IconButton className={classes.iconButton}
+                        ref={anchorRef}
+                        aria-controls={open ? 'menu-list-grow' : undefined}
+                        aria-haspopup="true"
+                        onClick={handleToggle}>
+                        <MoreVertOutlined fontSize="small" />
+                        {renderMenu}
+                    </IconButton>
+                </Paper>
+            </Paper >
+            <EditNote
+                open={state}
+                key={props.Nkey}
+                noteObj={props.NoteObj}
+                HandleCloseChange={handleCloseChange}
+            />
+        </div>
     );
 }

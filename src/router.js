@@ -6,18 +6,23 @@ import Dashboard from '../src/Component/Dashboard';
 import ForgatePassword from '../src/Component/ForgatePassword';
 import Notes from '../src/Component/Notes';
 import Reminder from '../src/Component/Reminder';
+import Label from './Component/Label';
+import Archive from './Component/Archive';
+import Trash from './Component/Trash'
+
 
 function Routing() {
     return (
         <Router>
-
             <Route path='/' exact component={SignIn} />
             <Route path='/signup' component={Signup} />
             <Route path='/forgatepassword' component={ForgatePassword} />
             <PrivateRoute path='/dashboard' component={Dashboard} />
             <Route path='/dashboard/notes' component={Notes} />
             <Route path='/dashboard/reminder' component={Reminder} />
-
+            <Route path='/dashboard/label' component={Label} />
+            <Route path='/dashboard/archive' component={Archive} />
+            <Route path='/dashboard/trash' component={Trash} />
         </Router>
     )
 }

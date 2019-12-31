@@ -1,17 +1,18 @@
 import React from "react";
+import { makeStyles } from '@material-ui/core/styles';
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import Slide from "@material-ui/core/Slide";
 import Paper from '@material-ui/core/Paper';
 import { Typography } from '@material-ui/core';
 import Unpined from '../Component/image/unpined.svg';
 import Pined from '../Component/image/pined.svg';
 import Avatar from '@material-ui/core/Avatar';
+import InputBase from '@material-ui/core/InputBase';
 import { IconButton, MenuItem, MenuList, Popper, ClickAwayListener, Grow } from '@material-ui/core/';
-import { AddAlertOutlined, PersonAddOutlined, ColorLensOutlined, MoreVertOutlined, ImageOutlined, ArchiveOutlined } from '@material-ui/icons';
+import { AddAlertOutlined, UndoOutlined, RedoOutlined, PersonAddOutlined, ColorLensOutlined, MoreVertOutlined, ImageOutlined, ArchiveOutlined } from '@material-ui/icons';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -19,7 +20,6 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         alignItems: 'center',
         flexDirection: 'column',
-        width: 570,
         boxShadow: '0.1em 0.1em 0.4em 0.1em black',
         borderRadius: '8px',
         [theme.breakpoints.down('xs')]: {
@@ -30,9 +30,9 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         flexDirection: 'row',
         flexWrap: 'wrap',
-        width: 570,
+        width: 540,
         border: '2px solid white',
-        borderRadius: '0px',
+        borderRadius: '8px',
         boxShadow: '0.1em 0.1em 0.4em 0em #fff',
         [theme.breakpoints.down('xs')]: {
             width: 300,
@@ -57,16 +57,10 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-
-const Transition = React.forwardRef(function Transition(props, ref) {
-    return <Slide direction="up" ref={ref} {...props} />;
-});
-
-export default function AlertDialogSlide() {
+export default function AlertDialogSlide(props) {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const anchorRef = React.useRef(null);
-
 
     const handleToggle = () => {
         setOpen(prevOpen => !prevOpen);
@@ -86,15 +80,7 @@ export default function AlertDialogSlide() {
         }
         prevOpen.current = open;
     }, [open]);
-    const [open, setOpen] = React.useState(false);
 
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-
-    const handleClose = () => {
-        setOpen(false);
-    };
     const renderMenu = (
         <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal style={{ backgroundColor: "#fff", zIndex: 1 }}>
             {({ TransitionProps, placement }) => (
@@ -118,87 +104,81 @@ export default function AlertDialogSlide() {
         </Popper>
     )
     return (
-        <div>
-            <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-                Slide in alert dialog
-      </Button>
-            <Dialog open={open} onClose={handleClose}>
-                <Paper component="div" className={classes.root}>
-                    <DialogTitle>
-                        {
-                            <Paper className={classes.paper}>
-                                <Typography
-                                    className={classes.input}
-                                    placeholder="Title"
-                                    inputProps={{ "aria-label": "title" }}
-                                >
-                                    {props.Title}
-                                </Typography>
-                                <IconButton
-                                    color="primary"
-                                    className={classes.iconButton}
-                                    aria-label="directions"
-                                    onClick={props.pinStatusChange}
-                                >
-                                    <Avatar
-                                        src={props.pinStatus ? Pined : Unpined}
-                                        style={{ height: "20px", width: "15px" }}
-                                    />
-                                </IconButton>
-                            </Paper>
-                        }
-                    </DialogTitle>
-                    <DialogContent>
+        <Dialog open={props.open} onClose={props.HandleCloseChange}>
+            <Paper component="div" className={classes.root}>
+                <DialogTitle>
+                    {
                         <Paper className={classes.paper}>
-                            <Typography
+                            <InputBase
                                 className={classes.input}
-                                placeholder="Take a notes..."
-                                inputProps={{ "aria-label": "Notes" }}
+                                inputProps={{ "aria-label": "title" }}
+                                placeholder="Title"
                             >
-                                {props.Content}
-                            </Typography>
-                        </Paper>
-                    </DialogContent>
-                    <DialogActions>
-                        <Paper className={classes.paper}>
-                            <IconButton className={classes.iconButton}>
-                                <AddAlertOutlined fontSize="small" />
-                            </IconButton>
-                            <IconButton className={classes.iconButton}>
-                                <PersonAddOutlined fontSize="small" />
-                            </IconButton>
-                            <IconButton className={classes.iconButton}>
-                                <ColorLensOutlined fontSize="small" />
-                            </IconButton>
-                            <IconButton className={classes.iconButton}>
-                                <ImageOutlined fontSize="small" />
-                            </IconButton>
-                            <IconButton className={classes.iconButton}>
-                                <ArchiveOutlined fontSize="small" />
-                            </IconButton>
+                                {props.Title}
+                            </InputBase>
                             <IconButton
+                                color="primary"
                                 className={classes.iconButton}
-                                ref={anchorRef}
-                                aria-controls={open ? "menu-list-grow" : undefined}
-                                aria-haspopup="true"
-                                onClick={handleToggle}
+                                aria-label="directions"
+                                onClick={props.pinStatusChange}
                             >
-                                <MoreVertOutlined fontSize="small" />
-                                {renderMenu}
+                                <Avatar
+                                    src={props.pinStatus ? Pined : Unpined}
+                                    style={{ height: "20px", width: "15px" }}
+                                />
                             </IconButton>
-                            <IconButton className={classes.iconButton}>
-                                <UndoOutlined fontSize="small" />
-                            </IconButton>
-                            <IconButton className={classes.iconButton}>
-                                <RedoOutlined fontSize="small" />
-                            </IconButton >
-                            <Button className={classes.closeButton} onClick={props.onClickAway}>
-                                Close
-                            </Button>
                         </Paper>
-                    </DialogActions>
-                </Paper>
-            </Dialog>
-        </div>
+                    }
+                </DialogTitle>
+                <DialogContent>
+                    <Paper className={classes.paper}>
+                        <InputBase
+                            className={classes.input}
+                            placeholder="Take a notes..."
+                        >
+                            {props.Content}
+                        </InputBase>
+                    </Paper>
+                </DialogContent>
+                <DialogActions>
+                    <Paper className={classes.paper}>
+                        <IconButton className={classes.iconButton}>
+                            <AddAlertOutlined fontSize="small" />
+                        </IconButton>
+                        <IconButton className={classes.iconButton}>
+                            <PersonAddOutlined fontSize="small" />
+                        </IconButton>
+                        <IconButton className={classes.iconButton}>
+                            <ColorLensOutlined fontSize="small" />
+                        </IconButton>
+                        <IconButton className={classes.iconButton}>
+                            <ImageOutlined fontSize="small" />
+                        </IconButton>
+                        <IconButton className={classes.iconButton}>
+                            <ArchiveOutlined fontSize="small" />
+                        </IconButton>
+                        <IconButton
+                            className={classes.iconButton}
+                            ref={anchorRef}
+                            aria-controls={open ? "menu-list-grow" : undefined}
+                            aria-haspopup="true"
+                            onClick={handleToggle}
+                        >
+                            <MoreVertOutlined fontSize="small" />
+                            {renderMenu}
+                        </IconButton>
+                        <IconButton className={classes.iconButton}>
+                            <UndoOutlined fontSize="small" />
+                        </IconButton>
+                        <IconButton className={classes.iconButton}>
+                            <RedoOutlined fontSize="small" />
+                        </IconButton >
+                        <Button className={classes.closeButton} onClick={props.onClickAway}>
+                            Close
+                            </Button>
+                    </Paper>
+                </DialogActions>
+            </Paper>
+        </Dialog>
     );
 }
