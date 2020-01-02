@@ -6,7 +6,6 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Paper from '@material-ui/core/Paper';
-import { Typography } from '@material-ui/core';
 import Unpined from '../Component/image/unpined.svg';
 import Pined from '../Component/image/pined.svg';
 import Avatar from '@material-ui/core/Avatar';
@@ -175,7 +174,7 @@ export default function AlertDialogSlide(props) {
                         </IconButton >
                         <Button className={classes.closeButton} onClick={props.onClickAway}>
                             Close
-                            </Button>
+                        </Button>
                     </Paper>
                 </DialogActions>
             </Paper>

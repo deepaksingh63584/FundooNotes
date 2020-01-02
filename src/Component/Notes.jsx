@@ -17,7 +17,8 @@ class Notes extends React.Component {
             noteTitle: '',
             noteItem: '',
             pinStatus: false,
-            notes: ''
+            pinNotes: null,
+            unPinNotes: null,
 
         };
     }
@@ -33,16 +34,12 @@ class Notes extends React.Component {
     }
 
     handleClickChange = () => {
-        // console.log('before click : ' + this.state.clickAway);
-
         this.setState({
             clickAway: true
         })
-        // console.log('After click : ' + this.state.clickAway);
     }
 
     handleClickAway = () => {
-        // console.log('before away : ' + this.state.clickAway);
         this.setState({
             clickAway: false
         })
@@ -59,8 +56,21 @@ class Notes extends React.Component {
 
     componentDidMount() {
         fetchNotesFromFireBase((snapObj) => {
+            let pinNotes = {}
+            let unPinNotes = {}
+            if (snapObj !== null && snapObj !== undefined) {
+                Object.getOwnPropertyNames(snapObj).map((key, index) => {
+                    if (snapObj[key].PinStatus === true) {
+                        pinNotes[key] = snapObj[key]
+                    }
+                    else if (snapObj[key].PinStatus === false) {
+                        unPinNotes[key] = snapObj[key]
+                    }
+                })
+            }
             this.setState({
-                notes: snapObj
+                pinNotes: pinNotes,
+                unPinNotes: unPinNotes
             })
         })
     }
@@ -93,12 +103,26 @@ class Notes extends React.Component {
                             }
                         </div>
                     </ClickAwayListener>
+                    PINED
                     <div className='noteCard'>
                         {
-                            this.state.notes !== null && this.state.notes !== undefined
-                                ? Object.getOwnPropertyNames(this.state.notes).map((key, index) => (
+                            this.state.pinNotes !== null && this.state.pinNotes !== undefined
+                                ? Object.getOwnPropertyNames(this.state.pinNotes).map((key, index) => (
                                     <NoteCard
-                                        NoteObj={this.state.notes[key]}
+                                        NoteObj={this.state.pinNotes[key]}
+                                        Nkey={key}
+                                    />
+                                ))
+                                : null
+                        }
+                    </div>
+                    UNPINED
+                    <div className='noteCard'>
+                        {
+                            this.state.unPinNotes !== null && this.state.unPinNotes !== undefined
+                                ? Object.getOwnPropertyNames(this.state.unPinNotes).map((key, index) => (
+                                    <NoteCard
+                                        NoteObj={this.state.unPinNotes[key]}
                                         Nkey={key}
                                     />
                                 ))

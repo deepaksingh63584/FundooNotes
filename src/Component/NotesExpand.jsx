@@ -110,7 +110,6 @@ export default function CustomizedInputBase(props) {
                     inputProps={{ "aria-label": "title" }}
                     placeholder="Title"
                     name="noteTitle"
-                     ,m................................ n m.....mnnnnnnnnnnnnnnnnnnnnnnnnnnnn nm............. nmmmmmmmmmmmmmmmmmlkkkkkkkkkkkkkkkkkkkkkknjjjjjjjjjjjjjjjjjjjjjjjklbjhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhkhvjjjjjjjjjjjjhjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvbbbbbbbbvghhhhhhhhhhhhhhjcgfhhhhhhhhhghjkjhjghcf
                 />
                 <IconButton color="primary" className={classes.iconButton} aria-label="directions" onClick={props.pinStatusChange} >
                     <Avatar src={props.pinStatus ? Pined : Unpined} style={{ height: "25px", width: "20px" }} ></Avatar>

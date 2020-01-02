@@ -36,5 +36,5 @@ export function editNotes(key, noteTitleValue, noteItemValue, pinStatus) {
 export function deleteNotes(key) {
     console.log(key);
     console.log(status);
-    firebase.database().ref('/users/' + uid + '/Notes/' + key + '/').update
+    firebase.database().ref('/users/' + uid + '/Notes/' + key + '/').remove()
 }
