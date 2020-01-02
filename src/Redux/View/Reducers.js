@@ -1,4 +1,4 @@
-import { VIEW, LIST } from './ActionType';
+import { GRID_VIEW, LIST_VIEW } from './ActionType';
 
 const initialState = {
     viewOpen: false
@@ -6,15 +6,15 @@ const initialState = {
 
 const reducers = (state = initialState, action) => {
     switch (action.type) {
-        case VIEW: return {
+        case GRID_VIEW: return {
             ...state,
             viewOpen: true
         }
-        case LIST: return {
+        case LIST_VIEW: return {
             ...state,
             viewOpen: false
         }
         default: return state
     }
 }
-export default reducers
+export default reducers;

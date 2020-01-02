@@ -33,6 +33,7 @@ import firebase from '../firebase';
 import Paper from "@material-ui/core/Paper";
 import { connect } from 'react-redux';
 import { toggleDrawerOpen, toggleDrawerClose } from "../Redux/Drawer/Ation";
+import { toggleViewOpen, toggleListClose } from '../Redux/View/Action';
 
 const useStyles = makeStyles(theme => ({
     grow: {
@@ -148,7 +149,6 @@ const useStyles = makeStyles(theme => ({
 
 function Navbar(props) {
     const classes = useStyles();
-    const [view, setview] = React.useState(false)
     const [anchorEl, setAnchorEl] = React.useState(null);
 
     const popOpen = Boolean(anchorEl)
@@ -278,8 +278,9 @@ function Navbar(props) {
                         <IconButton color="inherit">
                             <RefreshIcon />
                         </IconButton>
-                        <IconButton color="inherit" onClick={() => { setview(!view) }}>
-                            {view ? <DashboardOutlinedIcon /> : <ViewStreamIcon />}
+                        <IconButton color="inherit"
+                            onClick={!props.viewOpen ? props.toggleViewOpen : props.toggleListClose}>
+                            {props.viewOpen ? <DashboardOutlinedIcon /> : <ViewStreamIcon />}
                         </IconButton>
                         <SettingsDashboard marginRight={'7'} />
                         <IconButton
@@ -303,14 +304,17 @@ function Navbar(props) {
 
 const mapToStateProps = (state) => {
     return {
-        drawerOpen: state.drawerOpen
+        drawerOpen: state.drawer.drawerOpen,
+        viewOpen: state.view.viewOpen
     }
 }
 
 const mapToDispatchProps = (dispatch) => {
     return {
         toggleDrawerOpen: () => dispatch(toggleDrawerOpen()),
-        toggleDrawerClose: () => dispatch(toggleDrawerClose())
+        toggleDrawerClose: () => dispatch(toggleDrawerClose()),
+        toggleViewOpen: () => dispatch(toggleViewOpen()),
+        toggleListClose: () => dispatch(toggleListClose())
     }
 }
 

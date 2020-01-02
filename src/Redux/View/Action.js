@@ -1,4 +1,4 @@
-import { VIEW, LIST } from './ActionType';
+import { LIST_VIEW, GRID_VIEW } from './ActionType';
 
 export const toggleViewOpen = () => {
     return {

@@ -117,7 +117,7 @@ class Notes extends React.Component {
                         }
                     </div>
                     UNPINED
-                    <div className='noteCard'>
+                    <div className='listView'>
                         {
                             this.state.unPinNotes !== null && this.state.unPinNotes !== undefined
                                 ? Object.getOwnPropertyNames(this.state.unPinNotes).map((key, index) => (
@@ -137,7 +137,8 @@ class Notes extends React.Component {
 
 const mapToStateProps = (state) => {
     return {
-        drawerOpen: state.drawerOpen
+        drawerOpen: state.drawer.drawerOpen,
+        viewOpen: state.view.viewOpen
     }
 }
 

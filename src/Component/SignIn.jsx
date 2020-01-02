@@ -42,11 +42,12 @@ class SignIn extends Component {
                 localStorage.setItem('LastName', snapObj.lastname)
                 localStorage.setItem('EmailId', snapObj.emailid)
                 localStorage.setItem('uId', success.user.uid)
-                console.log('sihn in : '+localStorage.getItem('uId'));
-                
+                console.log('sihn in : ' + localStorage.getItem('uId'));
+                localStorage.setItem("isAuth", true)
+                this.props.history.push('/dashboard/notes');
+
             })
-            localStorage.setItem("isAuth", true)
-            this.props.history.push('/dashboard/notes');
+
         })
             .catch(function (error) {
                 var errorCode = error.code;
