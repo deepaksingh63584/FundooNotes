@@ -16,24 +16,18 @@
     height: 40%;
 }
 
-.noteCard{
+.gridView{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    background-color: cadetblue;
+    margin-left: 45px;
     margin-top: 2em;
-
-}
-
-.gridView{
-    display: flex;
-
 }
 
 .listView{
     display: flex;
-    width: 570px;
-    max-width: 570px;
-    background-color: blueviolet;
+    flex-direction: column;
+    width: 590px;
     margin: auto;
+    margin-top: 2em;
 }

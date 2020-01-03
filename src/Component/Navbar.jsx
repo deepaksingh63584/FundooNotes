@@ -181,7 +181,10 @@ function Navbar(props) {
             <List>
                 <span style={{ fontSize: '12px', marginLeft: '24px' }}>LABELS</span>
                 {[<span style={{ fontSize: '14px' }}><b>Edit labels</b></span>].map((text, index) => (
-                    <ListItem button key={text}>
+                    <ListItem button key={text}
+                        onClick={() => {
+                            props.DashboardProps.history.push('/dashboard/label')
+                        }}>
                         <ListItemIcon>{index % 2 === 0 ? <LablesOutlinedIcon /> : <BorderColorOutlinedIcon />}</ListItemIcon>
                         <ListItemText primary={text} />
                     </ListItem>
@@ -190,7 +193,12 @@ function Navbar(props) {
             <Divider />
             <List>
                 {[<span style={{ fontSize: '14px' }}><b>Archive</b></span>, <span style={{ fontSize: '14px' }}><b>Trash</b></span>].map((text, index) => (
-                    <ListItem button key={text}>
+                    <ListItem button key={text}
+                        onClick={() => {
+                            index % 2 === 0
+                                ? props.DashboardProps.history.push('/dashboard/archive')
+                                : props.DashboardProps.history.push('/dashboard/Trash')
+                        }}>
                         <ListItemIcon>{index % 2 === 0 ? <ArchiveOutlinedIcon /> : <DeleteOutlineOutlinedIcon />}</ListItemIcon>
                         <ListItemText primary={text} />
                     </ListItem>

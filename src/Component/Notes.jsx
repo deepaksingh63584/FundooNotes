@@ -19,7 +19,8 @@ class Notes extends React.Component {
             pinStatus: false,
             pinNotes: null,
             unPinNotes: null,
-
+            archive: false,
+            trash: false,
         };
     }
 
@@ -45,11 +46,12 @@ class Notes extends React.Component {
         })
         console.log('after away : ' + this.state.clickAway);
         if (this.state.noteTitle !== '' || this.state.noteItem !== '') {
-            setNoteInFireBase(this.state.noteTitle, this.state.noteItem, this.state.pinStatus)
+            setNoteInFireBase(this.state.noteTitle, this.state.noteItem, this.state.pinStatus, this.state.archive)
             this.setState({
                 noteTitle: '',
                 noteItem: '',
-                pinStatus: false
+                pinStatus: false,
+                archive: false
             })
         }
     }
@@ -93,6 +95,7 @@ class Notes extends React.Component {
                                         onClickAway={this.handleClickAway}
                                         noteTitleValue={this.state.noteTitle}
                                         noteItemValue={this.state.noteItem}
+                                        archiveValue={this.state.archive}
                                         pinStatusChange={() => this.setState({ pinStatus: !this.state.pinStatus })}
                                         pinStatus={this.state.pinStatus}
                                         handleNoteChange={this.handleNoteChange}
@@ -104,26 +107,29 @@ class Notes extends React.Component {
                         </div>
                     </ClickAwayListener>
                     PINED
-                    <div className='noteCard'>
+                    <div className={this.props.viewOpen ? 'listView' : 'gridView'} >
                         {
                             this.state.pinNotes !== null && this.state.pinNotes !== undefined
                                 ? Object.getOwnPropertyNames(this.state.pinNotes).map((key, index) => (
                                     <NoteCard
                                         NoteObj={this.state.pinNotes[key]}
                                         Nkey={key}
+                                        view={this.props.viewOpen}
                                     />
                                 ))
                                 : null
                         }
                     </div>
                     UNPINED
-                    <div className='listView'>
+                    <div className={this.props.viewOpen ? 'listView' : 'gridView'}>
                         {
                             this.state.unPinNotes !== null && this.state.unPinNotes !== undefined
                                 ? Object.getOwnPropertyNames(this.state.unPinNotes).map((key, index) => (
                                     <NoteCard
                                         NoteObj={this.state.unPinNotes[key]}
                                         Nkey={key}
+                                        view={this.props.viewOpen}
+
                                     />
                                 ))
                                 : null

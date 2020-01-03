@@ -1,17 +1,25 @@
 import firebase from './firebase';
 const uid = localStorage.getItem('uId')
 
-export function setNoteInFireBase(noteTitleValue, noteItemValue, pinStatus) {
+export function setNoteInFireBase(noteTitleValue, noteItemValue, pinStatus, archive) {
     console.log('uf : ' + uid);
     firebase.database().ref('/users/' + uid + '/Notes/').push({
         Title: noteTitleValue,
         Content: noteItemValue,
-        PinStatus: pinStatus
+        PinStatus: pinStatus,
+        Archive: archive
     })
 }
 
 export function fetchNotesFromFireBase(callback) {
     firebase.database().ref('/users/' + uid + '/Notes/').on('value', (snapshot) => {
+        let snapObj = snapshot.val();
+        callback(snapObj)
+    })
+}
+
+export function archiveNotes(callback) {
+    firebase.database().ref('/users/' + uid + '/Notes/').orderByChild('Archive').equalTo(true).on('value', (snapshot) => {
         let snapObj = snapshot.val();
         callback(snapObj)
     })
@@ -36,5 +44,7 @@ export function editNotes(key, noteTitleValue, noteItemValue, pinStatus) {
 export function deleteNotes(key) {
     console.log(key);
     console.log(status);
-    firebase.database().ref('/users/' + uid + '/Notes/' + key + '/').remove()
+    firebase.database().ref('/users/' + uid + '/Notes/' + key + '/').remove({
+
+    })
 }

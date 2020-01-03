@@ -16,7 +16,6 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         alignItems: 'center',
         flexDirection: 'column',
-        width: 240,
         marginBottom: "20px",
         height: 'fit-Content',
         marginLeft: '20px',
@@ -31,6 +30,18 @@ const useStyles = makeStyles(theme => ({
         flexDirection: 'row',
         flexWrap: 'wrap',
         width: 240,
+        border: '2px solid white',
+        borderRadius: '8px',
+        boxShadow: '0em 0em 0em 0em #fff',
+        [theme.breakpoints.down('xs')]: {
+            width: 240,
+        }
+    },
+    listPaper: {
+        display: 'flex',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        width: '97%',
         border: '2px solid white',
         borderRadius: '8px',
         boxShadow: '0em 0em 0em 0em #fff',
@@ -117,7 +128,7 @@ export default function CustomizedInputBase(props) {
     return (
         <div>
             <Paper component="div" className={classes.root}>
-                <Paper className={classes.paper}>
+                <Paper className={props.view ? classes.listPaper : classes.paper}>
                     <Typography
                         className={classes.input}
                         onClick={handleClickChange}
@@ -126,13 +137,13 @@ export default function CustomizedInputBase(props) {
                         <Avatar src={props.NoteObj.PinStatus ? Pined : Unpined} style={{ height: "20px", width: "15px" }} ></Avatar>
                     </IconButton>
                 </Paper>
-                <Paper className={classes.paper}>
+                <Paper className={props.view ? classes.listPaper : classes.paper}>
                     <Typography
                         className={classes.input}
                         onClick={handleClickChange}
                     >{props.NoteObj.Content}</Typography>
                 </Paper>
-                <Paper className={classes.paper}>
+                <Paper className={props.view ? classes.listPaper : classes.paper}>
                     <IconButton className={classes.iconButton}>
                         <AddAlertOutlined fontSize="small" />
                     </IconButton >
