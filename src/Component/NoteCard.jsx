@@ -124,6 +124,7 @@ export default function CustomizedInputBase(props) {
             )}
         </Popper>
     )
+    console.log("n12otecard key" + props.Nkey);
 
     return (
         <div>
@@ -171,7 +172,7 @@ export default function CustomizedInputBase(props) {
             </Paper >
             <EditNote
                 open={state}
-                key={props.Nkey}
+                Key={props.Nkey}
                 noteObj={props.NoteObj}
                 HandleCloseChange={handleCloseChange}
             />

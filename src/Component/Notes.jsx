@@ -106,7 +106,7 @@ class Notes extends React.Component {
                             }
                         </div>
                     </ClickAwayListener>
-                    PINED
+                    PINNED
                     <div className={this.props.viewOpen ? 'listView' : 'gridView'} >
                         {
                             this.state.pinNotes !== null && this.state.pinNotes !== undefined
@@ -120,7 +120,7 @@ class Notes extends React.Component {
                                 : null
                         }
                     </div>
-                    UNPINED
+                    OTHERS
                     <div className={this.props.viewOpen ? 'listView' : 'gridView'}>
                         {
                             this.state.unPinNotes !== null && this.state.unPinNotes !== undefined

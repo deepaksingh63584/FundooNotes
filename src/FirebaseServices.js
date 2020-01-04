@@ -33,7 +33,7 @@ export function updatePinStatus(key, status) {
     })
 }
 
-export function editNotes(key, noteTitleValue, noteItemValue, pinStatus) {
+export function editNotesFromFireBase(key, noteTitleValue, noteItemValue, pinStatus) {
     firebase.database().ref('/users/' + uid + '/Notes/' + key + '/').update({
         Title: noteTitleValue,
         Content: noteItemValue,
@@ -44,7 +44,5 @@ export function editNotes(key, noteTitleValue, noteItemValue, pinStatus) {
 export function deleteNotes(key) {
     console.log(key);
     console.log(status);
-    firebase.database().ref('/users/' + uid + '/Notes/' + key + '/').remove({
-
-    })
+    firebase.database().ref('/users/' + uid + '/Notes/' + key + '/').remove()
 }

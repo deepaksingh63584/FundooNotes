@@ -7,9 +7,7 @@ class Reminder extends Component {
             <Container style={{ marginTop: '4.1em', backgroundColor: 'deeppink', }}>
                 <div>
                     <h1>Archive</h1>
-                    hdsgfjiysoigucjhvjuixygfszjhbcvyoihxczkjyv
-                    vhnjxcvzuyxdzsIjbvchjyz
-                    zxjcvhoizvkjcxh
+                    archive code is here !
                 </div>
             </Container>
         );

@@ -12,6 +12,7 @@ import Avatar from '@material-ui/core/Avatar';
 import InputBase from '@material-ui/core/InputBase';
 import { IconButton, MenuItem, MenuList, Popper, ClickAwayListener, Grow } from '@material-ui/core/';
 import { AddAlertOutlined, UndoOutlined, RedoOutlined, PersonAddOutlined, ColorLensOutlined, MoreVertOutlined, ImageOutlined, ArchiveOutlined } from '@material-ui/icons';
+import { editNotesFromFireBase } from '../FirebaseServices';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -59,7 +60,18 @@ const useStyles = makeStyles(theme => ({
 export default function AlertDialogSlide(props) {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
+    const [title, setTitle] = React.useState(props.noteObj.Title);
+    const [content, setContent] = React.useState(props.noteObj.Content);
+    const [pin, setPin] = React.useState(props.noteObj.PinStatus);
+    // const [archive, setArchive] = React.useState(props.noteObj.Archive);
     const anchorRef = React.useRef(null);
+
+    const updateNotes = async () => {
+        console.log("Edit Notes key" + props.key);
+
+        await editNotesFromFireBase(props.Key, title, content, pin)
+        props.HandleCloseChange()
+    };
 
     const handleToggle = () => {
         setOpen(prevOpen => !prevOpen);
@@ -102,8 +114,10 @@ export default function AlertDialogSlide(props) {
             )}
         </Popper>
     )
+    console.log(" key : " + props.Key);
+    console.log("d5eswbcrtf" + JSON.stringify(props));
     return (
-        <Dialog open={props.open} onClose={props.HandleCloseChange}>
+        <Dialog open={props.open} onClose={updateNotes}>
             <Paper component="div" className={classes.root}>
                 <DialogTitle>
                     {
@@ -112,14 +126,14 @@ export default function AlertDialogSlide(props) {
                                 className={classes.input}
                                 inputProps={{ "aria-label": "title" }}
                                 placeholder="Title"
-                            >
-                                {props.Title}
-                            </InputBase>
+                                multiline={true}
+                                value={title}
+                                onChange={(e) => setTitle(e.target.value)}
+                                defaultValue={props.noteObj.Title}
+                            />
                             <IconButton
-                                color="primary"
                                 className={classes.iconButton}
-                                aria-label="directions"
-                                onClick={props.pinStatusChange}
+                                onChange={(e) => setPin(!pin)}
                             >
                                 <Avatar
                                     src={props.pinStatus ? Pined : Unpined}
@@ -134,6 +148,10 @@ export default function AlertDialogSlide(props) {
                         <InputBase
                             className={classes.input}
                             placeholder="Take a notes..."
+                            multiline={true}
+                            value={content}
+                            onChange={(e) => setContent(e.target.value)}
+                            defaultValue={props.noteObj.content}
                         >
                             {props.Content}
                         </InputBase>
@@ -172,7 +190,7 @@ export default function AlertDialogSlide(props) {
                         <IconButton className={classes.iconButton}>
                             <RedoOutlined fontSize="small" />
                         </IconButton >
-                        <Button className={classes.closeButton} onClick={props.onClickAway}>
+                        <Button className={classes.closeButton} onClick={updateNotes}>
                             Close
                         </Button>
                     </Paper>

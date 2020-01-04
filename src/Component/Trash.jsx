@@ -7,6 +7,16 @@ class Reminder extends Component {
             <Container style={{ marginTop: '4.1em', backgroundColor: 'deeppink', }}>
                 <div>
                     <h1>Trash</h1>
+
+
+
+
+
+
+
+
+                    
+                    trash is here !!!!!!!!!!!!!!!!!!!
                 </div>
             </Container>
         );

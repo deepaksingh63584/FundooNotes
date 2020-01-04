@@ -6,9 +6,7 @@ class Reminder extends Component {
         return (
             <Container style={{ marginTop: '4.1em', backgroundColor: 'deeppink', }}>
                 <div>
-                    hdsgfjiysoigucjhvjuixygfszjhbcvyoihxczkjyv
-                    vhnjxcvzuyxdzsIjbvchjyz
-                    zxjcvhoixzvkjcxh
+                    label code is here !!!!
                 </div>
             </Container>
         );
