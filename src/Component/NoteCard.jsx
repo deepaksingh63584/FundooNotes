@@ -7,7 +7,7 @@ import Pined from '../Component/image/pined.svg';
 import Avatar from '@material-ui/core/Avatar';
 import { IconButton, MenuItem, MenuList, Popper, ClickAwayListener, Grow } from '@material-ui/core/';
 import { AddAlertOutlined, PersonAddOutlined, ColorLensOutlined, MoreVertOutlined, ImageOutlined, ArchiveOutlined } from '@material-ui/icons';
-import { updatePinStatus } from '../FirebaseServices';
+import { updatePinStatus, updateArchive } from '../FirebaseServices';
 import EditNote from './EditNotes';
 
 const useStyles = makeStyles(theme => ({
@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
         marginBottom: "20px",
         height: 'fit-Content',
         marginLeft: '20px',
-        boxShadow: '0em 0em 0em 0em black',
+        border: '1px solid lightgray',
         borderRadius: '8px',
         [theme.breakpoints.down('xs')]: {
             width: 240,
@@ -157,7 +157,11 @@ export default function CustomizedInputBase(props) {
                     <IconButton className={classes.iconButton}>
                         <ImageOutlined fontSize="small" />
                     </IconButton>
-                    <IconButton className={classes.iconButton}>
+                    <IconButton className={classes.iconButton}
+                        onClick={() => {
+                            updateArchive(props.Nkey, !props.NoteObj.Archive)
+                        }}
+                    >
                         <ArchiveOutlined fontSize="small" />
                     </IconButton>
                     <IconButton className={classes.iconButton}

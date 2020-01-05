@@ -7,7 +7,8 @@ export function setNoteInFireBase(noteTitleValue, noteItemValue, pinStatus, arch
         Title: noteTitleValue,
         Content: noteItemValue,
         PinStatus: pinStatus,
-        Archive: archive
+        Archive: archive,
+        Trash: false
     })
 }
 
@@ -45,4 +46,18 @@ export function deleteNotes(key) {
     console.log(key);
     console.log(status);
     firebase.database().ref('/users/' + uid + '/Notes/' + key + '/').remove()
+}
+
+export function updateArchive(key, archive) {
+    firebase.database().ref('/users/' + uid + '/Notes/' + key + '/').update({
+        pinStatus: false,
+        Archive: archive
+    })
+}
+
+export function trashNotes(callback) {
+    firebase.database().ref('/users/' + uid + '/Notes/').orderByChild('Trash').equalTo(true).on('value', (snapshot) => {
+        let snapObj = snapshot.val();
+        callback(snapObj)
+    })
 }
