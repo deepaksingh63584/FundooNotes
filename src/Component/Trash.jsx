@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../Css Files/notes.css';
 import Container from '@material-ui/core/Container';
 import { ClickAwayListener } from '@material-ui/core';
-import NoteCard from './NoteCard';
+import TrashNoteCard from './TrashNoteCard'
 import { connect } from 'react-redux';
 import { trashNotes } from '../FirebaseServices';
 
@@ -43,7 +43,7 @@ class Trash extends Component {
                                 {
                                     this.state.Notes !== null && this.state.Notes !== undefined
                                         ? Object.getOwnPropertyNames(this.state.Notes).map((key, index) => (
-                                            <NoteCard
+                                            <TrashNoteCard
                                                 NoteObj={this.state.Notes[key]}
                                                 Nkey={key}
                                                 view={this.props.viewOpen}

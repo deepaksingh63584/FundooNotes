@@ -7,7 +7,7 @@ import Pined from '../Component/image/pined.svg';
 import Avatar from '@material-ui/core/Avatar';
 import { IconButton, MenuItem, MenuList, Popper, ClickAwayListener, Grow } from '@material-ui/core/';
 import { AddAlertOutlined, PersonAddOutlined, ColorLensOutlined, MoreVertOutlined, ImageOutlined, ArchiveOutlined } from '@material-ui/icons';
-import { updatePinStatus, updateArchive } from '../FirebaseServices';
+import { updatePinStatus, updateArchive, updateTrash } from '../FirebaseServices';
 import EditNote from './EditNotes';
 
 const useStyles = makeStyles(theme => ({
@@ -70,7 +70,8 @@ export default function CustomizedInputBase(props) {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const anchorRef = React.useRef(null);
-    const [state, setState] = React.useState(false)
+    const [state, setState] = React.useState(false);
+    const [trash, setTrash] = React.useState(false);
 
 
     const handleToggle = () => {
@@ -112,8 +113,15 @@ export default function CustomizedInputBase(props) {
                     <Paper >
                         <ClickAwayListener onClickAway={handleClose}>
                             <MenuList autoFocusItem={open} id="menu-list-grow">
-                                <MenuItem onClick={handleClose}>Delete Note</MenuItem>
-                                <MenuItem onClick={handleClose}>add Level</MenuItem>
+                                <MenuItem
+                                    onClick={() => {
+                                        updateTrash(props.Nkey, !props.NoteObj.Archive)
+                                    }}>
+                                    Delete Note
+                                </MenuItem>
+                                <MenuItem onClick={handleClose}>
+                                    add Level
+                                </MenuItem>
                                 <MenuItem onClick={handleClose}>add Drawing</MenuItem>
                                 <MenuItem onClick={handleClose}>Make a Copy</MenuItem>
                                 <MenuItem onClick={handleClose}>Show Checkboxes</MenuItem>

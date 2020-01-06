@@ -62,10 +62,10 @@ class Notes extends React.Component {
             let unPinNotes = {}
             if (snapObj !== null && snapObj !== undefined) {
                 Object.getOwnPropertyNames(snapObj).map((key, index) => {
-                    if (snapObj[key].PinStatus === true) {
+                    if (snapObj[key].PinStatus === true && snapObj[key].Archive === false && snapObj[key].Trash === false) {
                         pinNotes[key] = snapObj[key]
                     }
-                    else if (snapObj[key].PinStatus === false) {
+                    else if (snapObj[key].PinStatus === false && snapObj[key].Archive === false && snapObj[key].Trash === false) {
                         unPinNotes[key] = snapObj[key]
                     }
                 })
@@ -123,6 +123,7 @@ class Notes extends React.Component {
                     OTHERS
                     <div className={this.props.viewOpen ? 'listView' : 'gridView'}>
                         {
+                            
                             this.state.unPinNotes !== null && this.state.unPinNotes !== undefined
                                 ? Object.getOwnPropertyNames(this.state.unPinNotes).map((key, index) => (
                                     <NoteCard

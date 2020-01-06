@@ -34,6 +34,7 @@ import Paper from "@material-ui/core/Paper";
 import { connect } from 'react-redux';
 import { toggleDrawerOpen, toggleDrawerClose } from "../Redux/Drawer/Ation";
 import { toggleViewOpen, toggleListClose } from '../Redux/View/Action';
+import Label from './Label'
 
 const useStyles = makeStyles(theme => ({
     grow: {
@@ -61,7 +62,6 @@ const useStyles = makeStyles(theme => ({
         backgroundColor: "#e6e6e6",
         alignItems: "center",
         width: 650,
-        // width: "50%",
         [theme.breakpoints.down("sm")]: {
             display: 'none'
         }
@@ -150,6 +150,8 @@ const useStyles = makeStyles(theme => ({
 function Navbar(props) {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const [label, setLabel] = React.useState(null);
+    const [dialogState, setDialogState] = React.useState(false)
 
     const popOpen = Boolean(anchorEl)
     const id = popOpen ? 'simple-popover' : undefined;
@@ -183,7 +185,7 @@ function Navbar(props) {
                 {[<span style={{ fontSize: '14px' }}><b>Edit labels</b></span>].map((text, index) => (
                     <ListItem button key={text}
                         onClick={() => {
-                            props.DashboardProps.history.push('/dashboard/label')
+                            setDialogState(true)
                         }}>
                         <ListItemIcon>{index % 2 === 0 ? <LablesOutlinedIcon /> : <BorderColorOutlinedIcon />}</ListItemIcon>
                         <ListItemText primary={text} />
@@ -306,6 +308,13 @@ function Navbar(props) {
                 {sideList}
             </Drawer>
             {popoverProfile}
+            <Label
+                DialogState={dialogState}
+                CloseDialog={() => setDialogState(false)}
+                Labels={label}
+            />
+
+
         </div>
     );
 }

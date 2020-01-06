@@ -61,3 +61,25 @@ export function trashNotes(callback) {
         callback(snapObj)
     })
 }
+
+export function updateTrash(key, trash) {
+    firebase.database().ref('/users/' + uid + '/Notes/' + key + '/').update({
+        Trash: trash
+    })
+}
+
+export function addLabel(labelvalue) {
+    firebase.database().ref('/users/' + uid + '/Label/').push({
+        Label: labelvalue
+    })
+}
+
+export function updateLabels(key, label) {
+    firebase.database().ref('/users/' + uid + '/Label/' + key + '/').update({
+        Label: label
+    })
+}
+
+export function deleteLabel(key) {
+    firebase.database().ref('/users/' + uid + '/Label/' + key + '/').remove()
+}
