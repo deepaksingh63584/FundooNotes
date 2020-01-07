@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { IconButton, Typography, Paper } from '@material-ui/core/';
 import DeleteForeverOutlinedIcon from '@material-ui/icons/DeleteForeverOutlined';
 import RestoreFromTrashOutlinedIcon from '@material-ui/icons/RestoreFromTrashOutlined';
+import { updateTrash, deleteNotes } from '../FirebaseServices';
 
 
 const useStyles = makeStyles(theme => ({
@@ -64,10 +65,16 @@ export default function CustomizedInputBase(props) {
                     >{props.NoteObj.Content}</Typography>
                 </Paper>
                 <Paper className={classes.paper}>
-                    <IconButton className={classes.iconButton}>
+                    <IconButton className={classes.iconButton}
+                        onClick={() => {
+                            updateTrash(props.Nkey, false)
+                        }}>
                         <RestoreFromTrashOutlinedIcon />
                     </IconButton>
-                    <IconButton className={classes.iconButton}>
+                    <IconButton className={classes.iconButton}
+                        onClick={() => {
+                            deleteNotes(props.Nkey, false)
+                        }}>
                         <DeleteForeverOutlinedIcon />
                     </IconButton>
                 </Paper>

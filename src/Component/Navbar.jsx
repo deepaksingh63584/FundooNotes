@@ -31,6 +31,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import firebase from '../firebase';
 import Paper from "@material-ui/core/Paper";
+import LabelIcon from '@material-ui/icons/Label';
 import { connect } from 'react-redux';
 import { toggleDrawerOpen, toggleDrawerClose } from "../Redux/Drawer/Ation";
 import { toggleViewOpen, toggleListClose } from '../Redux/View/Action';
@@ -181,16 +182,29 @@ function Navbar(props) {
             </List>
             <Divider />
             <List>
-                <span style={{ fontSize: '12px', marginLeft: '24px' }}>LABELS</span>
-                {[<span style={{ fontSize: '14px' }}><b>Edit labels</b></span>].map((text, index) => (
-                    <ListItem button key={text}
-                        onClick={() => {
-                            setDialogState(true)
-                        }}>
-                        <ListItemIcon>{index % 2 === 0 ? <LablesOutlinedIcon /> : <BorderColorOutlinedIcon />}</ListItemIcon>
-                        <ListItemText primary={text} />
-                    </ListItem>
-                ))}
+                <ListItem>
+                    <span style={{ fontSize: '15px', marginLeft: '24px' }}>LABELS</span>
+                </ListItem>
+                <List>
+                    {/* {
+                        Label !== null &&
+                        Object.getOwnPropertyNames(Label).map((key, index) =>
+                            <ListItem>
+                                <LabelIcon />
+                            </ListItem>
+                            )
+                    } */}
+
+                    {[<span style={{ fontSize: '14px' }}><b>Edit labels</b></span>].map((text, index) => (
+                        <ListItem button key={text}
+                            onClick={() => {
+                                setDialogState(true)
+                            }}>
+                            <ListItemIcon>{index % 2 === 0 ? <LablesOutlinedIcon /> : <BorderColorOutlinedIcon />}</ListItemIcon>
+                            <ListItemText primary={text} />
+                        </ListItem>
+                    ))}
+                </List>
             </List>
             <Divider />
             <List>

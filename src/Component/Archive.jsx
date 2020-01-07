@@ -43,11 +43,11 @@ class Archive extends Component {
                                 {
                                     this.state.Notes !== null && this.state.Notes !== undefined
                                         ? Object.getOwnPropertyNames(this.state.Notes).map((key, index) => (
+                                            this.state.Notes[key].Trash === false &&
                                             <NoteCard
                                                 NoteObj={this.state.Notes[key]}
                                                 Nkey={key}
                                                 view={this.props.viewOpen}
-
                                             />
                                         ))
                                         : null

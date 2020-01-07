@@ -21,6 +21,8 @@ class Notes extends React.Component {
             unPinNotes: null,
             archive: false,
             trash: false,
+            pinCount: 0,
+            unPinnedCount: 0,
         };
     }
 
@@ -60,6 +62,8 @@ class Notes extends React.Component {
         fetchNotesFromFireBase((snapObj) => {
             let pinNotes = {}
             let unPinNotes = {}
+            let pinCount = 0
+            let unPinnedCount = 0
             if (snapObj !== null && snapObj !== undefined) {
                 Object.getOwnPropertyNames(snapObj).map((key, index) => {
                     if (snapObj[key].PinStatus === true && snapObj[key].Archive === false && snapObj[key].Trash === false) {
@@ -70,9 +74,13 @@ class Notes extends React.Component {
                     }
                 })
             }
+            pinCount = Object.keys(pinNotes).length
+            unPinnedCount = Object.keys(unPinNotes).length
             this.setState({
                 pinNotes: pinNotes,
-                unPinNotes: unPinNotes
+                unPinNotes: unPinNotes,
+                pinCount: pinCount,
+                unPinnedCount: unPinnedCount
             })
         })
     }
@@ -106,7 +114,7 @@ class Notes extends React.Component {
                             }
                         </div>
                     </ClickAwayListener>
-                    PINNED
+                    PINNED: {this.state.pinCount}
                     <div className={this.props.viewOpen ? 'listView' : 'gridView'} >
                         {
                             this.state.pinNotes !== null && this.state.pinNotes !== undefined
@@ -120,10 +128,10 @@ class Notes extends React.Component {
                                 : null
                         }
                     </div>
-                    OTHERS
+                    OTHERS: {this.state.unPinnedCount}
                     <div className={this.props.viewOpen ? 'listView' : 'gridView'}>
                         {
-                            
+
                             this.state.unPinNotes !== null && this.state.unPinNotes !== undefined
                                 ? Object.getOwnPropertyNames(this.state.unPinNotes).map((key, index) => (
                                     <NoteCard

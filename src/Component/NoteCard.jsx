@@ -115,7 +115,7 @@ export default function CustomizedInputBase(props) {
                             <MenuList autoFocusItem={open} id="menu-list-grow">
                                 <MenuItem
                                     onClick={() => {
-                                        updateTrash(props.Nkey, !props.NoteObj.Archive)
+                                        updateTrash(props.Nkey, true)
                                     }}>
                                     Delete Note
                                 </MenuItem>
