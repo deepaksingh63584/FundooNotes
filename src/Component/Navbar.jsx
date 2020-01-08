@@ -1,10 +1,5 @@
 import React from "react";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import IconButton from "@material-ui/core/IconButton";
-import Button from '@material-ui/core/Button';
-import Typography from "@material-ui/core/Typography";
-import InputBase from "@material-ui/core/InputBase";
+import { IconButton, Button, Typography, InputBase, AppBar, Toolbar, List, Divider, Drawer } from "@material-ui/core/";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import SettingsDashboard from "./DashbordSetting"
@@ -12,9 +7,6 @@ import ViewStreamIcon from "@material-ui/icons/ViewStream";
 import DashboardOutlinedIcon from '@material-ui/icons/DashboardOutlined';
 import RefreshIcon from "@material-ui/icons/Refresh";
 import { makeStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -31,11 +23,12 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import firebase from '../firebase';
 import Paper from "@material-ui/core/Paper";
-import LabelIcon from '@material-ui/icons/Label';
+import LabelIcon from '@material-ui/icons/LabelOutlined';
 import { connect } from 'react-redux';
 import { toggleDrawerOpen, toggleDrawerClose } from "../Redux/Drawer/Ation";
 import { toggleViewOpen, toggleListClose } from '../Redux/View/Action';
 import Label from './Label'
+import { getLabel } from "../FirebaseServices";
 
 const useStyles = makeStyles(theme => ({
     grow: {
@@ -186,15 +179,17 @@ function Navbar(props) {
                     <span style={{ fontSize: '15px', marginLeft: '24px' }}>LABELS</span>
                 </ListItem>
                 <List>
-                    {/* {
-                        Label !== null &&
-                        Object.getOwnPropertyNames(Label).map((key, index) =>
+                    {
+                        label !== null &&
+                        Object.getOwnPropertyNames(label).map((key, index) =>
                             <ListItem>
-                                <LabelIcon />
+                                <ListItemIcon>
+                                    <LabelIcon />
+                                </ListItemIcon>
+                                <ListItemText primary={label[key].Label} />
                             </ListItem>
-                            )
-                    } */}
-
+                        )
+                    }
                     {[<span style={{ fontSize: '14px' }}><b>Edit labels</b></span>].map((text, index) => (
                         <ListItem button key={text}
                             onClick={() => {
@@ -222,6 +217,12 @@ function Navbar(props) {
             </List>
         </div>
     );
+
+    React.useEffect(() => {
+        getLabel((snapshot) => {
+            setLabel(snapshot)
+        })
+    }, []);
 
     const popoverProfile = (
         <div>

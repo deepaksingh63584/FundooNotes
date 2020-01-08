@@ -74,6 +74,12 @@ export function addLabel(labelvalue) {
     })
 }
 
+export function getLabel(callback) {
+    firebase.database().ref('/users/' + uid + '/Label/').on('value', (snapshot) => {
+        callback(snapshot.val())
+    })
+}
+
 export function updateLabels(key, label) {
     firebase.database().ref('/users/' + uid + '/Label/' + key + '/').update({
         Label: label
@@ -82,10 +88,4 @@ export function updateLabels(key, label) {
 
 export function deleteLabel(key) {
     firebase.database().ref('/users/' + uid + '/Label/' + key + '/').remove()
-}
-
-export function getLabel(callback){
-    firebase.database().ref('/users/' + uid + '/Label/').on('value', (snapshot)=>{
-        callback(snapshot.val())
-    })
 }

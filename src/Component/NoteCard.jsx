@@ -71,7 +71,7 @@ export default function CustomizedInputBase(props) {
     const [open, setOpen] = React.useState(false);
     const anchorRef = React.useRef(null);
     const [state, setState] = React.useState(false);
-    const [trash, setTrash] = React.useState(false);
+    // const [trash, setTrash] = React.useState(false);
 
 
     const handleToggle = () => {

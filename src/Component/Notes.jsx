@@ -65,7 +65,7 @@ class Notes extends React.Component {
             let pinCount = 0
             let unPinnedCount = 0
             if (snapObj !== null && snapObj !== undefined) {
-                Object.getOwnPropertyNames(snapObj).map((key, index) => {
+                Object.getOwnPropertyNames(snapObj).map((key, index) =>{
                     if (snapObj[key].PinStatus === true && snapObj[key].Archive === false && snapObj[key].Trash === false) {
                         pinNotes[key] = snapObj[key]
                     }
