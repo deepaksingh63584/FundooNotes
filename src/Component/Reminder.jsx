@@ -41,7 +41,6 @@ function Reminder(props) {
         );
     };
 
-
     const handleCloseReminderPopover = () => {
         this.setState({
             anchorElReminderPopover: null

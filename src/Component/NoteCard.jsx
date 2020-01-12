@@ -9,6 +9,9 @@ import { IconButton, MenuItem, MenuList, Popper, ClickAwayListener, Grow } from 
 import { AddAlertOutlined, PersonAddOutlined, ColorLensOutlined, MoreVertOutlined, ImageOutlined, ArchiveOutlined } from '@material-ui/icons';
 import { updatePinStatus, updateArchive, updateTrash } from '../FirebaseServices';
 import EditNote from './EditNotes';
+import Reminder from './Reminder';
+import CheckBoxLabel from './CheckBoxLabel'
+import { getLabel } from "../FirebaseServices";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -71,8 +74,7 @@ export default function CustomizedInputBase(props) {
     const [open, setOpen] = React.useState(false);
     const anchorRef = React.useRef(null);
     const [state, setState] = React.useState(false);
-    // const [trash, setTrash] = React.useState(false);
-
+    const [label, setLabel] = React.useState(null);
 
     const handleToggle = () => {
         setOpen(prevOpen => !prevOpen);
@@ -132,6 +134,12 @@ export default function CustomizedInputBase(props) {
             )}
         </Popper>
     )
+
+    React.useEffect(() => {
+        getLabel((snapshot) => {
+            setLabel(snapshot)
+        })
+    }, []);
     console.log("n12otecard key" + props.Nkey);
 
     return (
@@ -153,8 +161,13 @@ export default function CustomizedInputBase(props) {
                     >{props.NoteObj.Content}</Typography>
                 </Paper>
                 <Paper className={props.view ? classes.listPaper : classes.paper}>
-                    <IconButton className={classes.iconButton}>
+                    <IconButton className={classes.iconButton}
+                        
+                        aria-controls={open ? 'menu-list-grow' : undefined}
+                        aria-haspopup="true"
+                    >
                         <AddAlertOutlined fontSize="small" />
+                        {Reminder}
                     </IconButton >
                     <IconButton className={classes.iconButton}>
                         <PersonAddOutlined fontSize="small" />
@@ -172,14 +185,11 @@ export default function CustomizedInputBase(props) {
                     >
                         <ArchiveOutlined fontSize="small" />
                     </IconButton>
-                    <IconButton className={classes.iconButton}
-                        ref={anchorRef}
-                        aria-controls={open ? 'menu-list-grow' : undefined}
-                        aria-haspopup="true"
-                        onClick={handleToggle}>
-                        <MoreVertOutlined fontSize="small" />
-                        {renderMenu}
-                    </IconButton>
+                    <CheckBoxLabel
+                        Nkey={props.Nkey}
+                        NoteObj={props.NoteObj}
+                        labels={label}
+                    />
                 </Paper>
             </Paper >
             <EditNote

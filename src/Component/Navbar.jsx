@@ -181,14 +181,14 @@ function Navbar(props) {
                 <List>
                     {
                         label !== null &&
-                        Object.getOwnPropertyNames(label).map((key, index) =>
-                            <ListItem>
+                        Object.getOwnPropertyNames(label).map((key, index) => (
+                            <ListItem button key={key}>
                                 <ListItemIcon>
                                     <LabelIcon />
                                 </ListItemIcon>
                                 <ListItemText primary={label[key].Label} />
                             </ListItem>
-                        )
+                        ))
                     }
                     {[<span style={{ fontSize: '14px' }}><b>Edit labels</b></span>].map((text, index) => (
                         <ListItem button key={text}

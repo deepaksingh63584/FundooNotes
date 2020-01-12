@@ -89,3 +89,29 @@ export function updateLabels(key, label) {
 export function deleteLabel(key) {
     firebase.database().ref('/users/' + uid + '/Label/' + key + '/').remove()
 }
+
+
+export function getLabelNote(NoteKey, labelKey, labelName) {
+    firebase.database().ref('/users/' + uid + '/Notes/' + NoteKey + '/NoteLebel/' + labelKey + '/').set({
+        LabelName: labelName
+    })
+}
+export function addLabelsInNote(notekey, labelId, labelName) {
+    firebase.database().ref('/users/' + uid + '/Notes/' + notekey + '/NoteLabel/' + labelId + '/').set({
+        LabelName: labelName
+    });
+    // firebase.database().ref('/users/' + uid + '/Label/' + labelId + '/LabelNote/').push({
+    //     NoteId: notekey
+    // });
+}
+
+export function removeLabelsInNote(NoteKey, labelKey, labelNoteKey) {
+    firebase.database().ref('/users/' + uid + '/Notes/' + NoteKey + '/NoteLabel/' + labelKey + '/').remove();
+    //firebase.database().ref('/users/' + uid + '/Label/' + labelKey + '/LabelNote/' + labelNoteKey + '/').remove();
+}
+
+export function getLabelFromNote(labelKey, callback) {
+    firebase.database().ref('/users/' + uid + '/Label/' + labelKey + '/LabelNote/').on('value', (snapshot) => {
+        callback(snapshot.val())
+    })
+}
